@@ -7,6 +7,7 @@ export default function Layout() {
 
   useEffect(() => {
     let skip = false;
+    /** @type {Comlink.Remote<{init: (value: 'foo' | 'bar') => '1' | '2'}>} */
     const w = Comlink.wrap(new Worker(new URL('../worker/worker.js', import.meta.url)));
 
     w.init('foo').then((v) => {
