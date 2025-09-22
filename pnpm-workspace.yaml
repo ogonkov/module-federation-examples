@@ -157,4 +157,6 @@ packages:
  - "vue3-demo-federation-with-vite"
  - "vue3-demo-federation-with-vite/*"
  - "react-sharedworker"
+ - "worker-with-dynamic-import"
+ - "worker-with-dynamic-import/*"
 
