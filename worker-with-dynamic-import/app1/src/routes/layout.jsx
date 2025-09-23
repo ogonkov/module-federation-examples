@@ -1,5 +1,4 @@
 import { Outlet } from '@modern-js/runtime/router';
-import * as Comlink from 'comlink';
 import { useEffect, useState } from 'react';
 
 export default function Layout() {
@@ -7,12 +6,13 @@ export default function Layout() {
 
   useEffect(() => {
     let skip = false;
-    /** @type {Comlink.Remote<{init: (value: 'foo' | 'bar') => '1' | '2'}>} */
-    const w = Comlink.wrap(new Worker(new URL('../worker/worker.js', import.meta.url)));
 
-    w.init('foo').then((v) => {
-      if (!skip) {setOutput(v)}}
-    );
+    const w = new Worker(new URL('../worker/worker.js', import.meta.url));
+
+    w.onmessage = ({data}) => {
+        if (!skip) {setOutput(data);}
+    };
+    w.postMessage({value: 'foo'});
 
     return () => {
       skip = true;

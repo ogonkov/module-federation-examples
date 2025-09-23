@@ -1,9 +1,8 @@
-import * as Comlink from 'comlink';
-
-async function init(value) {
+self.onmessage = async (event) => {
     const m = await import('./map');
-
-    return m[value];
-}
-
-Comlink.expose({init});
+    const v = event.data.value;
+    
+    self.postMessage({
+        answer: m.map[v],
+    });    
+};
