@@ -7,7 +7,10 @@ export default function Layout() {
   useEffect(() => {
     let skip = false;
 
-    const w = new Worker(new URL('../worker/worker.js', import.meta.url));
+    const w = new Worker(new URL('../worker/worker.js', import.meta.url), {
+      name: 'example-worker',
+      type: 'module',
+    });
 
     w.onmessage = ({data}) => {
         if (!skip) {setOutput(data);}
