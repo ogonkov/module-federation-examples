@@ -13,7 +13,7 @@ export default function Layout() {
     });
 
     w.onmessage = ({data}) => {
-        if (!skip) {setOutput(data);}
+        if (!skip) {setOutput(data.answer);}
     };
     w.postMessage({value: 'foo'});
 
