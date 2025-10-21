@@ -30,4 +30,8 @@ export class BlobWorker {
     ) {
         this.instance.removeEventListener(type, listener, options);
     }
+
+    terminate() {
+        this.instance.terminate();
+    }
 }

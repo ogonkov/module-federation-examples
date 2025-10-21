@@ -9,18 +9,22 @@ export default function Layout() {
   useEffect(() => {
     let skip = false;
 
+    const handleMessage = ({data}) => {
+        if (!skip) {setOutput(data.answer);}
+    };
+
     const w = new Worker(new URL('../worker/worker.js', import.meta.url), {
       name: 'example-worker',
       type: 'module',
     });
 
-    w.addEventListener('message', ({data}) => {
-        if (!skip) {setOutput(data.answer);}
-    });
+    w.addEventListener('message', handleMessage);
 
     w.postMessage({value: 'foo'});
 
     return () => {
+      w.removeEventListener('message', handleMessage);
+      w.terminate();
       skip = true;
     }
   }, []);
