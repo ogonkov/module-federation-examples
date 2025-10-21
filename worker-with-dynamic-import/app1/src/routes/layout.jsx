@@ -1,6 +1,8 @@
 import { Outlet } from '@modern-js/runtime/router';
 import { useEffect, useState } from 'react';
 
+import {BlobWorker as Worker} from '../utils/BlobWorker';
+
 export default function Layout() {
   const [output, setOutput] = useState();
 
@@ -12,9 +14,10 @@ export default function Layout() {
       type: 'module',
     });
 
-    w.onmessage = ({data}) => {
+    w.addEventListener('message', ({data}) => {
         if (!skip) {setOutput(data.answer);}
-    };
+    });
+
     w.postMessage({value: 'foo'});
 
     return () => {
