@@ -6,7 +6,7 @@ export class BlobWorker {
             }),
         );
 
-        this.instance = new Worker(scriptURL, options);
+        this.instance = new Worker(object, options);
 
         URL.revokeObjectURL(object);
     }
